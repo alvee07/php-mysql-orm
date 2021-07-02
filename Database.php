@@ -19,33 +19,33 @@ class Database
             $servername = "localhost";
             $username = "root";
             $password = "root";
-            $db_name = "test_db";
+            $database = "test_db";
 
             // Create connection
-            $conn = new mysqli($servername, $username, $password);
+            $mysqli = new mysqli($servername, $username, $password, $database);
 
             // Check connection
-            if ($conn->connect_error) {         
-                die("Connection failed: " . $conn->connect_error);
+            if ($mysqli->connect_error) {         
+                die("Connection failed: " . $mysqli->connect_error);
             } 
-            echo "Connected successfully";
+            echo "Connected successfully " . "</br>";
 
-            $sql = "SELECT id, name FROM test_db.users;";
+            $sql = "SELECT id, name FROM users;";
             
-            $result = $conn->query($sql);
+            $result = $mysqli->query($sql);
             var_dump($result);
             
             if ($result->num_rows > 0) {
               echo "<table><tr><th>ID</th><th>Name</th></tr>";
               // output data of each row
               while($row = $result->fetch_assoc()) {
-                echo "<tr><td>".$row["id"]."</td><td>".$row["firstname"]." ".$row["lastname"]."</td></tr>";
+                echo "<tr><td>".$row["id"]."</td><td>".$row["name"]." "."</td></tr>";
               }
               echo "</table>";
             } else {
               echo "0 results";
             }
-            $conn->close();
+            $mysqli->close();
             
         }
         catch(\Exception $ex)

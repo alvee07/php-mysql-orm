@@ -1,5 +1,5 @@
 ﻿<?php
-use Database;
+require_once('Database.php');
 
 
 $db = new Database("aaa");
