@@ -25,7 +25,7 @@ class MySqlConnection extends \mysqli
 				exit;
             }
 
-			$this->Execute_stored();
+			$this->Execute_filter();
 
 		}		
 		catch(\Exeception $ex)
@@ -34,7 +34,36 @@ class MySqlConnection extends \mysqli
 		}
     }
 
-	public function Execute_stored(string $sqlQuery = '')
+	public function Execute_filter(string $sqlQuery = '')
+    {
+        try
+        {
+			$salary = 99999.99;
+			$date = date('Y-m-d H:i:s');
+
+            $sql = "CALL filter_user('$salary', 1, 0, '$date');";
+
+            $result = $this->SqlConnection->query($sql);
+			// $returned = $result->fetch_assoc();
+			var_dump($result);
+
+			while ($row = $result->fetch_array()) {
+				echo "<pre>";
+				print_r($row);
+				echo "</pre>";
+			  	echo "</br> </br>";
+            }
+
+            $this->SqlConnection->close();
+        }
+        catch(\Exception $ex)
+        {
+            echo $ex->message;
+        }
+    }
+
+
+	public function Execute_insert(string $sqlQuery = '')
     {
         try
         {
