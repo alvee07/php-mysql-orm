@@ -1,4 +1,4 @@
-﻿<?php namespace User;
+﻿<?php
 
 class User {
 	public int $user_id;

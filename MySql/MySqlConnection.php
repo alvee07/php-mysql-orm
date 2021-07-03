@@ -25,7 +25,7 @@ class MySqlConnection extends \mysqli
 				exit;
             }
 
-			$this->Execute();
+			$this->Execute_stored();
 
 		}		
 		catch(\Exeception $ex)
@@ -33,6 +33,26 @@ class MySqlConnection extends \mysqli
 			echo $ex->message;
 		}
     }
+
+	public function Execute_stored(string $sqlQuery = '')
+    {
+        try
+        {
+            $sql = "CALL insert_user('from PHP Another', current_time(), current_date(), 'F', 3333, 1, 1);";
+
+            $result = $this->SqlConnection->query($sql);
+			$returned = $result->fetch_assoc();
+
+			var_dump($returned);
+
+            $this->SqlConnection->close();
+        }
+        catch(\Exception $ex)
+        {
+            echo $ex->message;
+        }
+    }
+
 
     public function Execute(string $sqlQuery = '')
     {
