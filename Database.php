@@ -30,23 +30,21 @@ class Database
             } 
             echo "Connected successfully " . "</br>";
 
-            $sql = "SELECT id, name FROM users;";
-            
+            //$sql = "SELECT id, name FROM users;";
+            $sql = "call select_users();";
+
             $result = $mysqli->query($sql);
-            var_dump($result);
-            
-            if ($result->num_rows > 0) {
-              echo "<table><tr><th>ID</th><th>Name</th></tr>";
-              // output data of each row
-              while($row = $result->fetch_assoc()) {
-                echo "<tr><td>".$row["id"]."</td><td>".$row["name"]." "."</td></tr>";
-              }
-              echo "</table>";
-            } else {
-              echo "0 results";
+
+			// $row = $result->fetch_assoc()
+            while ($row = $result->fetch_object('user')) {
+				echo "<pre>";
+				print_r($row);
+				echo "</pre>";
+			  	echo "</br> </br>";
             }
+
+
             $mysqli->close();
-            
         }
         catch(\Exception $ex)
         {
@@ -54,5 +52,21 @@ class Database
         }
     }
 }
+class user{
+	public $user_id;
+	public $user_name ;
+	public $user_dob;
+	public $user_updated;
+	public $user_gender;
+	public $user_salary;
+	public $user_is_deleted;
+	public $user_is_minor;
 
+	function __construct(){}
+
+	function toString(){
+		echo $this->id . "</br>";
+		echo $this->name . "</br>";
+	}
+}
 $db = new Database("asd","Asd");
